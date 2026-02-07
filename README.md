@@ -45,26 +45,6 @@ MobileNetV2 (Convolutional Neural Network)
 
 FastAPI (Inference API)
 
-Project Structure
-SmartCrop/
-├── frontend/
-│   ├── app.py
-│   ├── templates/
-│   │   ├── login.html
-│   │   ├── upload.html
-│   │   ├── analysis.html
-│   │   └── history.html
-│   ├── static/
-│   └── requirements.txt
-│
-├── ml/
-│   ├── inference.py
-│   ├── model/
-│   └── requirements.txt
-│
-├── README.md
-└── .gitignore
-
 How to Run the Project
 Step 1: Start the ML Inference Server
 cd ml
