@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartCrop | Analysis Result</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(180deg, #f8fdf8, #f0f6ff);
+      color: #1a1a2e;
+    }
+
+    header {
+      background: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(46,125,50,0.1);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #2E7D32;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #64748b;
+      margin-bottom: 2.5rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    }
+
+    .label {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .disease {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+    }
+
+    .confidence {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #2E7D32;
+    }
+
+    .bar {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 0.75rem;
+    }
+
+    .fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2E7D32, #4CAF50);
+      width: {{ confidence }}%;
+    }
+
+    .severity {
+      margin-top: 2rem;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    .low { background: #dcfce7; color: #166534; }
+    .medium { background: #fef3c7; color: #92400e; }
+    .high { background: #fee2e2; color: #991b1b; }
+
+    ul {
+      margin-top: 1rem;
+      padding-left: 1.2rem;
+    }
+
+    li {
+      margin-bottom: 0.6rem;
+      color: #475569;
+    }
+
+    .btn-row {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .btn-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .btn {
+      padding: 1rem;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2E7D32, #4CAF50);
+      color: white;
+    }
+
+    .btn-secondary {
+      border: 2px solid rgba(46,125,50,0.3);
+      color: #2E7D32;
+      background: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🌱 SmartCrop</div>
+  <a href="/upload">Analyze Another</a>
+</header>
+
+<main>
+  <h1>Analysis Result</h1>
+  <div class="subtitle">AI-based crop health assessment</div>
+
+  <div class="card-grid">
+
+    <!-- RESULT CARD -->
+    <div class="card">
+      <div class="label">Detected Condition</div>
+      <div class="disease">{{ disease }}</div>
+
+      <div class="label">Confidence</div>
+      <div class="confidence">{{ confidence }}%</div>
+      <div class="bar">
+        <div class="fill"></div>
+      </div>
+
+      {% set severity = "low" %}
+      {% if confidence >= 80 %}
+        {% set severity = "high" %}
+      {% elif confidence >= 50 %}
+        {% set severity = "medium" %}
+      {% endif %}
+
+      <div class="severity {{ severity }}">
+        Severity: {{ severity|capitalize }}
+      </div>
+
+      <div class="btn-row">
+        <a href="#remedies" class="btn btn-primary">View Remedies</a>
+        <a href="/upload" class="btn btn-secondary">New Image</a>
+      </div>
+    </div>
+
+    <!-- RECOMMENDATIONS -->
+    <div class="card" id="remedies">
+      <div class="label">Precautions</div>
+      <ul>
+        <li>Avoid overhead watering</li>
+        <li>Remove infected leaves immediately</li>
+        <li>Ensure proper plant spacing</li>
+        <li>Monitor crop daily</li>
+      </ul>
+
+      <div class="label" style="margin-top:1.5rem;">Remedies</div>
+      <ul>
+        <li>Apply recommended fungicide or treatment</li>
+        <li>Use disease-resistant crop varieties</li>
+        <li>Improve soil drainage</li>
+        <li>Follow crop rotation practices</li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>
