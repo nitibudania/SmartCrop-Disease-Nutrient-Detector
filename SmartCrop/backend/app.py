@@ -19,7 +19,7 @@ app.add_middleware(
 # LOAD MODEL ON STARTUP
 # -----------------------
 MODEL_PATH = "tomato_leaf_baseline.h5"
-model = tf.keras.models.load_model(MODEL_PATH)
+model = tf.keras.models.load_model(MODEL_PATH,custom_objects={"TrueDivide": tf.math.truediv})
 
 # -----------------------
 # IMAGE PREPROCESSING
